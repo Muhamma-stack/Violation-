@@ -181,8 +181,8 @@ let allAnalysisResults = []; // Store unfiltered results
 let filteredResults = []; // Store currently filtered results
 let totalPagesInPdf = 0; // Total pages in PDF (from backend)
 
-// Backend API: same origin when page is from http://127.0.0.1:8000, else backend URL
-const API_BASE = window.location.port === '8000' ? '' : 'http://127.0.0.1:8000';
+// Backend API: same origin for all deployments
+const API_BASE = '';
 
 async function analyzePDF() {
     const fileInput = document.getElementById('pdfFile');
