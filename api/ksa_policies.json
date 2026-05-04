@@ -1,0 +1,59 @@
+{
+  "_note": "Vocabulary = terms that should NOT appear in KSA school content. Step 1: Find these in the PDF. Step 2: Run violation check on each found keyword.",
+  "educational_contexts": [
+    "history of",
+    "study of",
+    "learn about",
+    "academic",
+    "textbook",
+    "chapter",
+    "lesson",
+    "curriculum"
+  ],
+  "prohibition_phrases": [
+    "forbidden",
+    "not allowed",
+    "prohibited",
+    "must not",
+    "should not",
+    "cannot"
+  ],
+  "policies": {
+    "Religious Compliance": {
+      "description": "Align with Islamic values. Prohibit promotion of other religions, atheism, or inappropriate religious symbols.",
+      "severity": "High",
+      "action": "Remove immediately",
+      "terms_not_allowed_in_ksa_schools": [
+        "christianity", "church", "bible", "idol", "cross", "atheism", "mass",
+        "jesus", "god", "religion", "worship", "temple", "synagogue", "crucifix"
+      ]
+    },
+    "Political Neutrality": {
+      "description": "Strict political neutrality. Prohibit content related to unauthorized political activism or ideologies.",
+      "severity": "High",
+      "action": "Review and remove",
+      "terms_not_allowed_in_ksa_schools": [
+        "democracy", "protest", "revolution", "election", "opposition", "israel",
+        "communist", "republic", "strike", "demonstration", "campaign"
+      ]
+    },
+    "Public Safety & Morality": {
+      "description": "Prohibit violence, weapons, terrorism, or illegal substances (alcohol/drugs).",
+      "severity": "High",
+      "action": "Remove immediately",
+      "terms_not_allowed_in_ksa_schools": [
+        "gun", "bomb", "terrorism", "alcohol", "drug", "murder", "violence",
+        "weapon", "blood", "suicide", "torture", "heroin", "marijuana", "beer", "wine"
+      ]
+    },
+    "Social & Cultural Values": {
+      "description": "Respect KSA social norms. Prohibit sexual content, LGBTQ+ promotion, or Western-specific celebrations.",
+      "severity": "High",
+      "action": "Remove immediately",
+      "terms_not_allowed_in_ksa_schools": [
+        "sex", "lgbt", "dating", "boyfriend", "christmas", "halloween", "pork",
+        "girlfriend", "kissing", "transgender", "gay", "lesbian", "dancing"
+      ]
+    }
+  }
+}
