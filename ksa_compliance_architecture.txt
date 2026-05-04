@@ -1,0 +1,43 @@
+# AI-Based Architecture for KSA School Book Content Verification
+
+## 1. Input Layer (User Interface)
+*   **Purpose:** Secure web portal for textbook submission.
+*   **Capabilities:**
+    *   Direct English PDF uploads.
+    *   Zero manual keyword/metadata input required.
+    *   Automated validation (File size, Page count, Language detection).
+
+## 2. Document Processing Layer
+*   **PDF Parser:** Sequential page extraction with metadata mapping.
+*   **OCR Engine:** Integrated Tesseract/Azure Form Recognizer for scanned content.
+*   **Normalization:** Noise reduction and text standardization for clean LLM input.
+
+## 3. AI Compliance Analysis Layer (Core Engine)
+*   **Knowledge Base:** Digital twin of KSA Ministry policies (Religious, Cultural, Political).
+*   **LLM Engine:** Multi-model support (GPT-4/Claude/Jais) for semantic reasoning.
+*   **Analysis:** Independent page evaluation against codified KSA laws.
+
+## 4. Violation Classification Layer
+*   **Automated Extraction:** Identification of violation category and severity.
+*   **Mandatory Schema:** 
+    `Page | Category | Keyword | Severity | Detail | Action`
+*   **Filtering:** Immediate exclusion of compliant pages from results.
+
+## 5. Post-Processing & Validation
+*   **Deduplication:** Merging overlapping findings across page segments.
+*   **Confidence Scoring:** AI-driven weightage to assist human reviewers.
+
+## 6. Results & Reporting Layer
+*   **Interactive Table:** Real-time dashboard with multi-filter capabilities.
+*   **Exports:** High-fidelity Excel/CSV reports for Ministry audit.
+
+## 7. Audit & Feedback Layer
+*   **Human-in-the-loop:** Reviewer validation (Accept/Reject/Comment).
+*   **Continuous Learning:** Feedback loop to refine prompts and reduce false positives.
+
+## Tech Stack
+*   **Frontend:** React / Next.js
+*   **Backend:** Python (FastAPI)
+*   **AI:** GPT-4 / Claude / Jais API
+*   **OCR:** Tesseract / AWS Textract
+*   **Security:** Ministry-grade encryption and RBAC.

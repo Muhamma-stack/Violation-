@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- SheetJS library for Excel generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="samrat-header">
+            <h1>🤖 AI SMART BOOK ANALYZER</h1>
+            <p class="samrat-subtitle"></p>
+            <p class="subtitle">KSA Ministry Policy Compliance Checker for Educational Books</p>
+        </div>
+        
+        <div class="form-section">
+            <div class="input-group">
+                <label for="pdfFile">📎 Upload PDF Book File:</label>
+                <input type="file" id="pdfFile" accept=".pdf" />
+                <span class="file-name" id="fileName">No file selected</span>
+            </div>
+            
+            <div class="info-box">
+                <h3>🤖 Policy-Driven AI Content Analysis</h3>
+                <p><strong>AI SAMRAT</strong> uses advanced artificial intelligence to automatically analyze your PDF against KSA educational policies. The system understands context and meaning to identify potential violations:</p>
+                <ul>
+                    <li>✅ <strong>Semantic Policy Analysis:</strong> Evaluates content against official KSA Ministry guidelines</li>
+                    <li>✅ <strong>Contextual Confidence:</strong> Analyzes surrounding text to reduce false positives</li>
+                    <li>✅ <strong>Dynamic Indicators:</strong> Uses policy-based anchors for deep semantic inspection</li>
+                    <li>✅ <strong>Educational Filtering:</strong> Intelligently distinguishes between academic study and prohibited promotion</li>
+                    <li>✅ <strong>Policy Descriptions:</strong> Each finding is linked to a specific educational policy</li>
+                </ul>
+                <p><strong>Policies Checked:</strong> Religious Compliance, Political Neutrality, Public Safety & Morality, Social & Cultural Values, Scientific Integrity, Professional Language</p>
+            </div>
+            
+            <button id="analyzeBtn" class="btn-primary samrat-btn" onclick="analyzePDF()">
+                🤖 AI SMART - Analyze Book Content
+            </button>
+        </div>
+        
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Analyzing PDF... Please wait</p>
+        </div>
+        
+        <div id="results" class="results hidden">
+            <div class="results-header">
+                <h2>KSA Compliance Analysis Results</h2>
+                <div class="filter-group">
+                    <label>Filter By:</label>
+                    <select id="severityFilter" onchange="applyFilters()">
+                        <option value="All">All Severities</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                    <select id="categoryFilter" onchange="applyFilters()">
+                        <option value="All">All Categories</option>
+                        <option value="Religious Compliance">Religious Compliance</option>
+                        <option value="Political Neutrality">Political Neutrality</option>
+                        <option value="Public Safety & Morality">Public Safety & Morality</option>
+                        <option value="Social & Cultural Values">Social & Cultural Values</option>
+                        <option value="Scientific Integrity">Scientific Integrity</option>
+                        <option value="Professional Language">Professional Language</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="compliance-status">
+                <div class="compliance-badge" id="complianceStatus">Analyzing...</div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-label">Total Issues Found:</span>
+                    <span class="stat-value" id="totalMatches">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Pages Analyzed:</span>
+                    <span class="stat-value" id="pagesAnalyzed">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Pages with Issues:</span>
+                    <span class="stat-value" id="pagesWithIssues">0</span>
+                </div>
+                <div class="stat-item critical-stat">
+                    <span class="stat-label">High:</span>
+                    <span class="stat-value" id="criticalCount">0</span>
+                </div>
+                <div class="stat-item major-stat">
+                    <span class="stat-label">Medium:</span>
+                    <span class="stat-value" id="majorCount">0</span>
+                </div>
+                <div class="stat-item minor-stat">
+                    <span class="stat-label">Low:</span>
+                    <span class="stat-value" id="minorCount">0</span>
+                </div>
+                <div class="stat-item accuracy-stat">
+                    <span class="stat-label">Avg Confidence:</span>
+                    <span class="stat-value" id="avgConfidence">0%</span>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th>Page</th>
+                            <th>Category</th>
+                            <th>Keyword</th>
+                            <th>Severity</th>
+                            <th>Detail</th>
+                            <th>Action</th>
+                            <th>Status</th>
+                            <th>Comment</th>
+                            <th>Review</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsBody">
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="pagination-container" id="paginationContainer">
+                <div class="pagination-info">
+                    <span id="paginationInfo">Showing 0 - 0 of 0 results</span>
+                </div>
+                <div class="pagination-controls">
+                    <button id="firstPageBtn" class="pagination-btn" onclick="goToPage(1)" disabled>⏮ First</button>
+                    <button id="prevPageBtn" class="pagination-btn" onclick="previousPage()" disabled>◀ Previous</button>
+                    <div class="page-numbers" id="pageNumbers"></div>
+                    <button id="nextPageBtn" class="pagination-btn" onclick="nextPage()" disabled>Next ▶</button>
+                    <button id="lastPageBtn" class="pagination-btn" onclick="goToLastPage()" disabled>Last ⏭</button>
+                </div>
+                <div class="pagination-size">
+                    <label for="pageSize">Results per page:</label>
+                    <select id="pageSize" onchange="changePageSize()">
+                        <option value="10" selected>10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button id="downloadBtn" class="btn-download" onclick="downloadExcel()">
+                ⬇️ Download Excel Report
+            </button>
+        </div>
+        <!-- /#results -->
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
+
