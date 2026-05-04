@@ -181,8 +181,8 @@ let allAnalysisResults = []; // Store unfiltered results
 let filteredResults = []; // Store currently filtered results
 let totalPagesInPdf = 0; // Total pages in PDF (from backend)
 
-// Backend API: use /api endpoint for Vercel deployment
-const API_BASE = '/api';
+// Backend API: direct endpoint for Vercel deployment
+const API_BASE = '';
 
 async function analyzePDF() {
     const fileInput = document.getElementById('pdfFile');
