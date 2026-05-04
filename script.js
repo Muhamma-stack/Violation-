@@ -203,7 +203,7 @@ async function analyzePDF() {
         const response = await fetch(API_BASE + '/analyze', {
             method: 'POST',
             body: formData,
-            signal: AbortSignal.timeout(300000) // 5 minute timeout for large files
+            signal: AbortSignal.timeout(900000) // 15 minute timeout for large files
         });
 
         if (!response.ok) {
